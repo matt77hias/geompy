@@ -34,7 +34,7 @@ def test_ray_lines_2D():
     entities = [box, g, r2, isect2]
     visitors = [factory.create_Factory(box.dim()).get_WireframeRenderer()]
     visit(entities, visitors)
-    
+
 def test_ray_lines_3D():
     pMin = np.array([-15.0, -15.0, -15.0])
     pMax = np.array([15.0, 15.0, 15.0])

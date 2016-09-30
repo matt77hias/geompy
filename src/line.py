@@ -33,7 +33,7 @@ class Line(Shape):
          
     def intersect(self, ray, isect=None):
         '''
-        o + t.d = alpha . v1 + (1 - alpha) . v2
+        o + t * d = alpha * v1 + (1 - alpha) * v2
         
         <=>
         
@@ -61,8 +61,17 @@ class Line(Shape):
         A[:,1] = ray.d		
         rhs = self.v2 - ray.o
         
+        if (A.shape[0] > 2):
+            A0 = np.where(~A.any(axis=1))[0]
+            rhs0 = np.where(rhs == 0.0 )[0]
+            if np.array_equal(A0, rhs0):
+                A = np.delete(A, A0, axis=0)
+                rhs = np.delete(rhs, rhs0, axis=0)
+                if (A.shape[0] > 2):
+                    return False 
+            
         try: 
-            x = np.linalg.lstsq(A, rhs)[0] 
+            x = np.linalg.solve(A, rhs) 
         except np.linalg.LinAlgError:
             return False
         
