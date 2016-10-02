@@ -1,6 +1,7 @@
 # geompy
 
-## A small Python library focussing on visualizing and processing geometry.
+## About
+A small Python library focussing on visualizing and processing geometry.
 
 ## Use
 <p align="center"><img src="https://github.com/matt77hias/geompy/blob/master/res/Wireframe 2D.png" width="430"><img src="https://github.com/matt77hias/geompy/blob/master/res/Wireframe 3D.png" width="430"></p>
