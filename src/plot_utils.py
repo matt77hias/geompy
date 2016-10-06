@@ -67,21 +67,3 @@ def vis_samples_3D(ss, fname=None):
     else:
         plt.savefig(fname)
         plt.close()
-        
-###################################################################################################################################################################################
-## Statistics Utilities
-###################################################################################################################################################################################
-def loglogerr(x, y, yerr, xerr=None, base=2, **kwargs):
-    logx = np.log(x) / np.log(base)
-    logy = np.log(y) / np.log(base)
-    logyerr = np.log(y + yerr) / np.log(base)
-    if xerr is not None:
-        logxerr = np.log(x + xerr) / np.log(base)
-        plt.errorbar(x=logx, y=logy, yerr=logyerr, xerr=logxerr, **kwargs)
-    else:
-        plt.errorbar(x=logx, y=logy, yerr=logyerr, xerr=None, **kwargs)
-        
-def loglogerrr(x, y, yerr, xerr=None, **kwargs):
-    plt.errorbar(x, y, yerr, xerr=xerr, **kwargs)
-    plt.yscale('log')
-    plt.xscale('log')
