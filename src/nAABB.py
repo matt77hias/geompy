@@ -89,24 +89,24 @@ class NAABB(Shape):
         tMax = ray.tMax
 
         for i in range(ray.d.shape[0]):
-            with np.errstate(divide='ignore'):
+            with np.errstate(divide='ignore', invalid='ignore'):
                 inv_d = 1.0 / ray.d[i]
-            tNear  = (self.pMin[i] - ray.o[i]) * inv_d
-            tFar   = (self.pMax[i] - ray.o[i]) * inv_d
+                tNear = (self.pMin[i] - ray.o[i]) * inv_d
+                tFar  = (self.pMax[i] - ray.o[i]) * inv_d
+                
+                if (tNear > tFar): 
+                    tNear, tFar = tFar, tNear
+                if (tNear > tMin):
+                    tMin = tNear
+                if (tFar < tMax):
+                    tMax = tFar
+                if (tMin > tMax):
+                    return False
 
-            if (tNear > tFar): 
-                tNear, tFar = tFar, tNear
-            if (tNear > tMin):
-                tMin = tNear
-            if (tFar < tMax):
-                tMax = tFar
-            if (tMin > tMax):
-                return False
-
-	    # inside strict: tMax
-	    # min border:    tMin
-	    # max border:    tMin = tMax
-	    # outside:       tMin
+	# inside strict: tMax
+	# min border:    tMin
+	# max border:    tMin = tMax
+	# outside:       tMin
         if self.inside_strict(ray.o):
             self._update_intersection(t=tMax, ray=ray, isect=isect)
         else:
@@ -116,17 +116,17 @@ class NAABB(Shape):
     def intersect_info(self, ray):
         ray.stats.scount += 1
 
-        tMin = -np.inf
-        tMax =  np.inf
+        tMin = ray.tMin
+        tMax = ray.tMax
         plMin = plMax = None
 
         for i in range(ray.d.shape[0]):
-            with np.errstate(divide='ignore'):
+            with np.errstate(divide='ignore', invalid='ignore'):
                 inv_d = 1.0 / ray.d[i]
-            tNear  = (self.pMin[i] - ray.o[i]) * inv_d
-            tFar   = (self.pMax[i] - ray.o[i]) * inv_d
-            plNear = 2 * i
-            plFar  = 2 * i + 1
+                tNear  = (self.pMin[i] - ray.o[i]) * inv_d
+                tFar   = (self.pMax[i] - ray.o[i]) * inv_d
+                plNear = 2 * i
+                plFar  = 2 * i + 1
     
             if (tNear > tFar): 
                 tNear, tFar = tFar, tNear
@@ -137,13 +137,9 @@ class NAABB(Shape):
             if (tFar < tMax):
                 tMax = tFar
                 plMax = plFar
+            if (tMin > tMax):
+                return (False, None, None, None, None)
            
-        if (ray.tMin > tMax or ray.tMax < tMin):
-            return (False, None, None, None, None)
-        if (tMin < ray.tMin):
-            tMin = ray.tMin
-        if (tMax > ray.tMax):
-            tMax = ray.tMax
         return (True, tMin, tMax, plMin, plMax)
         
     def __copy__(self):
