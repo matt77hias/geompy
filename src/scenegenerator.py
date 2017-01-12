@@ -85,8 +85,8 @@ def small_spherical(center=0.0, radius=1.0, nt=1024, rng=None, seed=None, sample
     scene = f.get_Group()
     for i in range(nt):
         v1 = sampler.uniform_sample_within_sphere(center=center, radius=radius)
-        v2 = v1 + 0.010 * sampler.uniform_sample_sphere(center=center, radius=radius)
-        v3 = v1 + 0.010 * sampler.uniform_sample_sphere(center=center, radius=radius)
+        v2 = 0.010 * sampler.uniform_sample_sphere(center=v1, radius=radius)
+        v3 = 0.010 * sampler.uniform_sample_sphere(center=v1, radius=radius)
         scene.append(Triangle(v1, v2, v3))
     return scene
 
@@ -102,8 +102,8 @@ def large_spherical(center=0.0, radius=1.0, nt=1024, rng=None, seed=None, sample
     scene = f.get_Group()
     for i in range(nt):
         v1 = sampler.uniform_sample_within_sphere(center=center, radius=radius)
-        v2 = v1 + 0.333 * sampler.uniform_sample_sphere(center=center, radius=radius)
-        v3 = v1 + 0.333 * sampler.uniform_sample_sphere(center=center, radius=radius)
+        v2 = 0.333 * sampler.uniform_sample_sphere(center=v1, radius=radius)
+        v3 = 0.333 * sampler.uniform_sample_sphere(center=v1, radius=radius)
         scene.append(Triangle(v1, v2, v3))
     return scene
     
@@ -119,8 +119,8 @@ def small_gaussian(center=0.0, radius=1.0, nt=1024, rng=None, seed=None, sampler
     scene = f.get_Group()
     for i in range(nt):
         v1 = 0.333 * sampler.rng.normal() * sampler.uniform_sample_sphere(center=center, radius=radius)
-        v2 = v1 + 0.010 * sampler.uniform_sample_sphere(center=center, radius=radius)
-        v3 = v1 + 0.010 * sampler.uniform_sample_sphere(center=center, radius=radius)
+        v2 = 0.010 * sampler.uniform_sample_sphere(center=v1, radius=radius)
+        v3 = 0.010 * sampler.uniform_sample_sphere(center=v1, radius=radius)
         scene.append(Triangle(v1, v2, v3))
     return scene
     
@@ -136,8 +136,8 @@ def large_gaussian(center=0.0, radius=1.0, nt=1024, rng=None, seed=None, sampler
     scene = f.get_Group()
     for i in range(nt):
         v1 = 0.333 * sampler.rng.normal() * sampler.uniform_sample_sphere(center=center, radius=radius)
-        v2 = v1 + 0.333 * sampler.uniform_sample_sphere(center=center, radius=radius)
-        v3 = v1 + 0.333 * sampler.uniform_sample_sphere(center=center, radius=radius)
+        v2 = 0.333 * sampler.uniform_sample_sphere(center=v1, radius=radius)
+        v3 = 0.333 * sampler.uniform_sample_sphere(center=v1, radius=radius)
         scene.append(Triangle(v1, v2, v3))
     return scene
      
