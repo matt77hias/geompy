@@ -157,9 +157,9 @@ def random_vertices(center=0.0, radius=1.0, nt=1024, rng=None, seed=None, sample
         scene.append(Triangle(v1, v2, v3))
     return scene
     
-###################################################################################################################################################################################
+###############################################################################
 ## Tests
-###################################################################################################################################################################################
+###############################################################################
 from modelgenerator import _cube
 def _test_stratified(density=0.75, nb_voxels=3, rng=None, seed=None, scaling=0.20, translation=True, rotation=True):
     scene = stratified(_cube(), density=density, nb_voxels=nb_voxels, rng=rng, seed=seed, scaling=scaling, translation=translation, rotation=rotation)
