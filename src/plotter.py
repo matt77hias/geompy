@@ -101,7 +101,7 @@ class Plotter2D(Plotter):
         self.ax.set_xlabel("x")
         self.ax.set_ylabel("y")
         
-    def set_equal_aspect_ratio(self, AABP, alpha=1.5, delta=0.0):
+    def set_equal_aspect_ratio(self, nAABB, alpha=1.5, delta=0.0):
         set_equal_aspect_ratio_2D_AABP(self.ax, AABP, alpha=alpha, delta=delta)
    
     def plot_text(self, text, p, ha='center', va='center', **kwargs):
@@ -142,7 +142,7 @@ class Plotter3D(Plotter):
         self.ax.set_ylabel("y")
         self.ax.set_zlabel("z")
         
-    def set_equal_aspect_ratio(self, AABB, alpha=1.5, delta=0.0):
+    def set_equal_aspect_ratio(self, nAABB, alpha=1.5, delta=0.0):
         set_equal_aspect_ratio_3D_AABB(self.ax, AABB, alpha=alpha, delta=delta)
    
     def plot_text(self, text, p, ha='center', va='center', **kwargs):
